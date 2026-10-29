@@ -63,3 +63,7 @@ One seeded workload provides reproducibility, not statistical confidence. A stro
 ## Interactive presentation website
 
 Double-click `open-website.cmd`, or open `bpm-site/dist/index.html` in your browser. Choose Present for six slides divided among three speakers. Close presentation mode to explore staffing sliders, budget constraints, the clickable Pareto chart and utilization. This interface uses the saved simulation results and works offline with fallback fonts. Website instructions are in `bpm-site/README.md`.
+
+### New scenarios
+
+Use **+ New scenario** to change demand, service durations, calendars, hourly costs, budget and seed. The website runs new browser simulations across all 125 teams and computes an exact Pareto frontier. It includes quick-start scenarios, browser-local saved inputs, JSON import/export, active-result CSV export, pinned comparisons and presentation slides that follow the active scenario. The browser engine uses its own RNG and exhaustive enumeration, separate from the original C++ NSGA-II reference. See `bpm-site/README.md` for assumptions and `node bpm-site/tests/simulation.test.cjs` for checks.

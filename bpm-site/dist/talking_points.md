@@ -57,3 +57,13 @@ Our next steps are to use real event logs, run repeated experiments, add richer 
 **Is cost actual spending?** It is planned staffing cost in arbitrary units over 20 days. Extended backlog-clearance cost is currently omitted.
 
 **How can we trust the simulation?** It has deterministic seeds and uses identical sampled workloads across allocations. Stronger validation requires event-level checks, independent replications and comparison against real event logs.
+
+## Live scenario demonstration (optional extra 1-2 minutes)
+
+Member 1: Click New scenario and select Demand surge. Explain that a shorter arrival gap means applications arrive more frequently. Review the budget and keep the seed unchanged.
+
+Member 2: Click Simulate scenario. Explain that the browser now runs a discrete-event simulation for every one of the 125 teams, using the same sampled workload for each team. The original C++ experiment uses NSGA-II; these new browser scenarios use exact enumeration. Do not call the new results a fresh NSGA-II run.
+
+Member 3: Pin the current balanced team, select Fastest and discuss the extra cost versus time saving. Create Complex risk checks to show how changing service time shifts pressure toward analysts. Cross-scenario comparisons have different conditions and do not isolate staffing effects. Export the scenario JSON so the experiment can be reproduced.
+
+The original C++ figures above remain reference results. Custom scenario results appear live in the interface and presentation mode. Different browser and C++ random generators mean identical seed numbers do not produce identical sampled workloads.
