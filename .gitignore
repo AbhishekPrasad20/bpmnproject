@@ -1,0 +1,8 @@
+*.exe
+*.o
+*.obj
+*.tar.gz
+.openai/
+node_modules/
+__pycache__/
+.DS_Store
