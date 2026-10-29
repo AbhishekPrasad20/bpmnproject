@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='utf-8'?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_Loan" targetNamespace="https://bpmnproject.example/loan" exporter="Process Lab">
+  <bpmn:collaboration id="Collaboration_Loan">
+    <bpmn:participant id="Participant_Bank" name="Loan approval" processRef="Process_Loan" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_Loan" name="Loan approval under resource constraints" isExecutable="false">
+    <bpmn:documentation>Conceptual BPMN model matching main.cpp: receive, check documents, assess risk, approve. Both clerk tasks share one pool. Staffing, queues, costs and calendars are implemented by the simulator, not executed by this BPMN file. All cases follow the same route; rejection and rework are outside scope.</bpmn:documentation>
+    <bpmn:laneSet id="LaneSet_Roles">
+      <bpmn:lane id="Lane_Clerk" name="Clerk">
+        <bpmn:flowNodeRef>Start_Application</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Receive</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Check</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Analyst" name="Analyst">
+        <bpmn:flowNodeRef>Task_Risk</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Manager" name="Manager">
+        <bpmn:flowNodeRef>Task_Approve</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_Complete</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="Start_Application" name="Application arrives">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="Task_Receive" name="Receive application">
+      <bpmn:documentation>Clerk pool. Reference mean service: 8 working minutes.</bpmn:documentation>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_Check" name="Check documents">
+      <bpmn:documentation>Same shared clerk pool as Receive application. Reference mean service: 15 working minutes.</bpmn:documentation>
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_Risk" name="Assess risk">
+      <bpmn:documentation>Analyst pool. Reference mean service: 35 working minutes.</bpmn:documentation>
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_Approve" name="Approve">
+      <bpmn:documentation>Manager pool. Reference mean service: 10 working minutes.</bpmn:documentation>
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_5</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="End_Complete" name="Application complete">
+      <bpmn:incoming>Flow_5</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start_Application" targetRef="Task_Receive" />
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Receive" targetRef="Task_Check" />
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_Check" targetRef="Task_Risk" />
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_Risk" targetRef="Task_Approve" />
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="Task_Approve" targetRef="End_Complete" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="Diagram_Loan">
+    <bpmndi:BPMNPlane id="Plane_Loan" bpmnElement="Collaboration_Loan">
+      <bpmndi:BPMNShape id="Shape_Participant_Bank" bpmnElement="Participant_Bank" isHorizontal="true">
+        <dc:Bounds x="30" y="50" width="1110" height="450" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Lane_Clerk" bpmnElement="Lane_Clerk" isHorizontal="true">
+        <dc:Bounds x="60" y="50" width="1080" height="150" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Lane_Analyst" bpmnElement="Lane_Analyst" isHorizontal="true">
+        <dc:Bounds x="60" y="200" width="1080" height="150" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Lane_Manager" bpmnElement="Lane_Manager" isHorizontal="true">
+        <dc:Bounds x="60" y="350" width="1080" height="150" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Start_Application" bpmnElement="Start_Application">
+        <dc:Bounds x="120" y="107" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="85" y="151" width="106" height="38" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_Receive" bpmnElement="Task_Receive">
+        <dc:Bounds x="220" y="85" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_Check" bpmnElement="Task_Check">
+        <dc:Bounds x="440" y="85" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_Risk" bpmnElement="Task_Risk">
+        <dc:Bounds x="650" y="235" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_Approve" bpmnElement="Task_Approve">
+        <dc:Bounds x="860" y="385" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_End_Complete" bpmnElement="End_Complete">
+        <dc:Bounds x="1060" y="407" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1025" y="451" width="106" height="38" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Edge_1" bpmnElement="Flow_1">
+        <di:waypoint x="156" y="125" />
+        <di:waypoint x="220" y="125" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_2" bpmnElement="Flow_2">
+        <di:waypoint x="370" y="125" />
+        <di:waypoint x="440" y="125" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_3" bpmnElement="Flow_3">
+        <di:waypoint x="590" y="125" />
+        <di:waypoint x="620" y="125" />
+        <di:waypoint x="620" y="275" />
+        <di:waypoint x="650" y="275" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_4" bpmnElement="Flow_4">
+        <di:waypoint x="800" y="275" />
+        <di:waypoint x="830" y="275" />
+        <di:waypoint x="830" y="425" />
+        <di:waypoint x="860" y="425" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_5" bpmnElement="Flow_5">
+        <di:waypoint x="1010" y="425" />
+        <di:waypoint x="1060" y="425" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

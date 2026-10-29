@@ -67,3 +67,7 @@ Double-click `open-website.cmd`, or open `bpm-site/dist/index.html` in your brow
 ### New scenarios
 
 Use **+ New scenario** to change demand, service durations, calendars, hourly costs, budget and seed. The website runs new browser simulations across all 125 teams and computes an exact Pareto frontier. It includes quick-start scenarios, browser-local saved inputs, JSON import/export, active-result CSV export, pinned comparisons and presentation slides that follow the active scenario. The browser engine uses its own RNG and exhaustive enumeration, separate from the original C++ NSGA-II reference. See `bpm-site/README.md` for assumptions and `node bpm-site/tests/simulation.test.cjs` for checks.
+
+## BPMN process model
+
+`loan_approval.bpmn` is a non-executable BPMN 2.0 model with diagram coordinates. Open it in a BPMN-compatible modeler. `loan_approval.svg` is the matching presentation preview. The website includes the diagram and BPMN download. It has one participant (loan approval), three role lanes, four user tasks, start/end events and five sequence flows. Both clerk tasks share the clerk pool in the simulator. There are no decision branches because the implemented model processes every application along the same route. The simulator does not parse BPMN XML; it implements this route directly.

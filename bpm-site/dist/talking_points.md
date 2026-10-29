@@ -67,3 +67,7 @@ Member 2: Click Simulate scenario. Explain that the browser now runs a discrete-
 Member 3: Pin the current balanced team, select Fastest and discuss the extra cost versus time saving. Create Complex risk checks to show how changing service time shifts pressure toward analysts. Cross-scenario comparisons have different conditions and do not isolate staffing effects. Export the scenario JSON so the experiment can be reproduced.
 
 The original C++ figures above remain reference results. Custom scenario results appear live in the interface and presentation mode. Different browser and C++ random generators mean identical seed numbers do not produce identical sampled workloads.
+
+## Explaining the BPMN diagram
+
+Member 1: "This BPMN model has one pool for loan approval and three lanes for Clerk, Analyst and Manager responsibilities. The thin circle is the start event, the rounded rectangles with person markers are user tasks, and the thick circle is the end event. Solid arrows are sequence flows. Both clerk tasks belong to the same lane and share a resource pool in our simulator. We have no gateways because this prototype has no rejection or rework branches. The BPMN file documents the process; the C++ and browser simulators implement its route directly rather than reading the XML."
